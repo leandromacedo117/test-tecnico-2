@@ -1,42 +1,40 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 
-function useFetch<T>(url: RequestInfo | URL, options?: RequestInit) {
-    const [data, setData] = React.useState<T | null>(null)
-    const [loading, setLoading] = React.useState<boolean | null>(false)
-    const [error, setError] = React.useState<string | null>(null)
+function useFetch<T>(url: string) {
+    const [data, setData] = useState<T | null>(null)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
 
-    const optionsRef = React.useRef(options)
-    optionsRef.current = options
+    useEffect(() => {
+        if (!url) return
 
-    React.useEffect(() =>{
+        const controller = new AbortController()
+        const { signal } = controller
 
-        const controller = new AbortController();
-        const {signal} = controller
-
-        const fetchData = async () =>{
+        const fetchData = async () => {
             setLoading(true)
+            setError(null)
 
-            try{
-                const res = await fetch(url, {
-                    signal,
-                    ...optionsRef.current
-                });
-                if(!res.ok) throw new Error(`error: ${res.status}`)
+            try {
+                const res = await fetch(url, { signal })
+                if (!res.ok) throw new Error(`Error: ${res.status}`)
                 const json = await res.json() as T
-
-                if(!signal.aborted) setData(json)
-            } catch (error) {
-                if(!signal.aborted && error instanceof Error) setError(error.message)
-            } finally{
-                if(!signal.aborted) setLoading(false)
+                setData(json)
+            } catch (err) {
+                if (!signal.aborted && err instanceof Error) {
+                    setError(err.message)
+                }
+            } finally {
+                if (!signal.aborted) setLoading(false)
             }
         }
 
         fetchData()
-    },[])
 
+        return () => controller.abort()
+    }, [url])
 
-  return {data, loading, error}
+    return { data, loading, error }
 }
 
-export default useFetch;
+export default useFetch
