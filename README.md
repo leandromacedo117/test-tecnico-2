@@ -1,4 +1,4 @@
-# **GitHub Profile Avanti ** 
+# GitHub Profile Avanti 
 
 **Desafio Front-End:** Aplicação React para buscar e exibir perfis do GitHub com integração direta à API pública.  
 
