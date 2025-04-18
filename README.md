@@ -26,7 +26,7 @@ Projeto desenvolvido para demonstrar habilidades avançadas em:
 - Feedback visual durante loading  
 -  exibição do resultado ou do erro
 
-### **📱 Moderna**    
+### **📱 Responsivo**    
 - Cards responsivos  
 - Transições suaves  
 
@@ -49,7 +49,7 @@ Projeto desenvolvido para demonstrar habilidades avançadas em:
 
 ---
 
-## **🔥 Destaques Técnicos**  
+## **Hook custom**  
 
 ### **useFetch Hook (TypeScript)**  
 ```typescript
@@ -144,7 +144,7 @@ github-finder/
 
 ---
 
-## **🚀 Como Executar**  
+## ** Como Executar**  
 
 1. **Clone o repositório**  
 ```bash
